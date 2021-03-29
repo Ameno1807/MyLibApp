@@ -1,5 +1,6 @@
 package com.example.mylibapp.data
 
-data class Film(
+class Movie (
+    val id: Int,
     val imageUrl: String?
 )

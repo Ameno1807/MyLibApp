@@ -1,14 +1,11 @@
 package com.example.mylibapp.data
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
-data class Data (
-    @Json(name = "results") val results: List<Result>
-)
 
-@JsonClass(generateAdapter = true)
-data class Result (
-    @Json(name = "backdrop_path") val imageUrl: String?
+@Serializable
+data class Data(
+    val id: Int,
+    @SerialName("poster_path") val imageUrl: String?
 )

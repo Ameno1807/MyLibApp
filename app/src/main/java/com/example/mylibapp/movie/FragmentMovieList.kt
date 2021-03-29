@@ -5,19 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mylibapp.R
-import com.example.mylibapp.adapter.AdapterFragmentList
-import kotlinx.android.synthetic.main.fragment_movie_list.*
+import com.example.mylibapp.adapter.FragmentMovieAdapter
+import com.example.mylibapp.data.Movie
+import com.example.mylibapp.di.RepositoryProvider
+import kotlinx.coroutines.launch
 
 class FragmentMovieList: Fragment() {
 
-    private val itemAdapter = AdapterFragmentList()
-
-    private val filmViewModel by viewModels<FilmViewModel>()
+    private var listener: MoviesListItemClickListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,16 +29,39 @@ class FragmentMovieList: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recycler.apply {
-            adapter = itemAdapter
-            layoutManager = GridLayoutManager(this.context, 2)
+        view.findViewById<RecyclerView>(R.id.recycler_movie).apply {
+            this.layoutManager = GridLayoutManager(this.context, 2)
+
+            val adapter = FragmentMovieAdapter { Data ->
+                listener?.onMovieSelected(Data)
+            }
+
+            this.adapter = adapter
+
+            loadDataToAdapter(adapter)
         }
 
-        filmViewModel.items.observe(viewLifecycleOwner, Observer {
-            it ?: return@Observer
-            itemAdapter.    addItems(it)
-        })
 
     }
+
+    private fun loadDataToAdapter(adapter: FragmentMovieAdapter) {
+        val repository = (requireActivity() as RepositoryProvider).provideMovieRepository()
+        lifecycleScope.launch {
+            val moviesData = repository.loadMovies()
+
+            adapter.submitList(moviesData)
+        }
+    }
+
+    override fun onDetach() {
+        listener = null
+
+        super.onDetach()
+    }
+
+    interface MoviesListItemClickListener {
+        fun onMovieSelected(movie: Movie)
+    }
+
 
 }

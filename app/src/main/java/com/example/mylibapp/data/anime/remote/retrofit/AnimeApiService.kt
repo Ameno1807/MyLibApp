@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface AnimeApiService {
 
-    @GET("./getfilmlist")
+    @GET("./getAnimeList")
     @Headers("Content-Type: application/json")
     suspend fun animeLoadUpcoming(): UpComingAnime
 }

@@ -1,4 +1,4 @@
-package com.example.mylibapp.data
+package com.example.mylibapp.model
 
 class Movie (
     val id: Int,

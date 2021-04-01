@@ -1,22 +1,37 @@
-package com.example.mylibapp.movie
+package com.example.mylibapp.UI.movie.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mylibapp.R
-import com.example.mylibapp.adapter.FragmentMovieAdapter
-import com.example.mylibapp.data.Movie
-import com.example.mylibapp.di.RepositoryProvider
-import kotlinx.coroutines.launch
+import com.example.mylibapp.UI.movie.viewModel.MovieListViewModelFactory
+import com.example.mylibapp.UI.movie.viewModel.MovieViewModel
+import com.example.mylibapp.UI.movie.viewModel.MoviesListViewModelImpl
+import com.example.mylibapp.di.MovieRepositoryProvider
+import com.example.mylibapp.model.Movie
 
 class FragmentMovieList: Fragment() {
 
+    private val viewModel: MoviesListViewModelImpl by viewModels {
+        MovieListViewModelFactory((requireActivity() as MovieRepositoryProvider).provideMovieRepository())
+    }
+
     private var listener: MoviesListItemClickListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (context is MoviesListItemClickListener) {
+            listener = context
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,27 +46,25 @@ class FragmentMovieList: Fragment() {
 
         view.findViewById<RecyclerView>(R.id.recycler_movie).apply {
             this.layoutManager = GridLayoutManager(this.context, 2)
-
-            val adapter = FragmentMovieAdapter { Data ->
-                listener?.onMovieSelected(Data)
+            val adapter = FragmentMovieAdapter { movieData ->
+                listener?.onMovieSelected(movieData)
             }
 
             this.adapter = adapter
 
             loadDataToAdapter(adapter)
+
         }
 
 
     }
 
     private fun loadDataToAdapter(adapter: FragmentMovieAdapter) {
-        val repository = (requireActivity() as RepositoryProvider).provideMovieRepository()
-        lifecycleScope.launch {
-            val moviesData = repository.loadMovies()
-
-            adapter.submitList(moviesData)
-        }
+        viewModel.moviesOutput.observe(viewLifecycleOwner, { movieList ->
+            adapter.submitList(movieList)
+        })
     }
+
 
     override fun onDetach() {
         listener = null

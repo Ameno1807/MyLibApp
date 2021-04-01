@@ -1,11 +1,11 @@
-package com.example.mylibapp.adapter
+package com.example.mylibapp.UI.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.mylibapp.anime.FragmentAnimeList
-import com.example.mylibapp.book.FragmentBookList
-import com.example.mylibapp.movie.FragmentMovieList
+import com.example.mylibapp.UI.anime.FragmentAnimeList
+import com.example.mylibapp.UI.book.FragmentBookList
+import com.example.mylibapp.UI.movie.view.FragmentMovieList
 
 class MyPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 

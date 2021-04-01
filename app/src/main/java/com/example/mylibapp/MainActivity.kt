@@ -3,15 +3,21 @@ package com.example.mylibapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
-import com.example.mylibapp.adapter.MyPagerAdapter
-import com.example.mylibapp.data.JsonMovieRepository
-import com.example.mylibapp.data.MovieRepository
-import com.example.mylibapp.di.RepositoryProvider
+import com.example.mylibapp.UI.adapter.MyPagerAdapter
+import com.example.mylibapp.data.remote.retrofit.RetrofitDataSource
+import com.example.mylibapp.di.MovieRepositoryProvider
+import com.example.mylibapp.di.NetworkModule
+import com.example.mylibapp.repository.MovieRepository
+import com.example.mylibapp.repository.MovieRepositoryDB
 import com.google.android.material.tabs.TabLayout
 
 
-class MainActivity : AppCompatActivity(), RepositoryProvider {
-    private val jsonMovieRepository = JsonMovieRepository(this)
+class MainActivity : AppCompatActivity(),
+                     MovieRepositoryProvider {
+
+    private val networkModule = NetworkModule()
+    private val remoteDataSource = RetrofitDataSource(networkModule.api)
+    private val movieRepository = MovieRepositoryDB(remoteDataSource)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,12 +33,12 @@ class MainActivity : AppCompatActivity(), RepositoryProvider {
 
     }
 
-    override fun provideMovieRepository(): MovieRepository = jsonMovieRepository
+    override fun provideMovieRepository(): MovieRepository = movieRepository
+
 
     /* fun routeOnMovieList() {
          supportFragmentManager.beginTransaction().apply {
              add(R.id.container, FragmentMovieList())
              commit()
          }*/
-
 }

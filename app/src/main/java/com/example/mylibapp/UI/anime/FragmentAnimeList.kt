@@ -1,4 +1,4 @@
-package com.example.mylibapp.book
+package com.example.mylibapp.UI.anime
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.mylibapp.R
 
-class FragmentBookList : Fragment() {
+
+class FragmentAnimeList : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_book_list, container, false)
+        return inflater.inflate(R.layout.fragment_anime_list, container, false)
     }
-
 
 }

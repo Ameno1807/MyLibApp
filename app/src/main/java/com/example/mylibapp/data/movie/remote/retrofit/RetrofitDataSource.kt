@@ -1,8 +1,8 @@
-package com.example.mylibapp.data.remote.retrofit
+package com.example.mylibapp.data.movie.remote.retrofit
 
-import com.example.mylibapp.data.remote.RemoteDataSource
+import com.example.mylibapp.data.movie.remote.RemoteDataSource
 import com.example.mylibapp.model.Movie
-import com.example.mylibapp.data.remote.retrofit.responce.ImageResponse
+import com.example.mylibapp.data.movie.remote.retrofit.responce.ImageResponse
 
 
 class RetrofitDataSource(private val api: MovieApiService): RemoteDataSource {

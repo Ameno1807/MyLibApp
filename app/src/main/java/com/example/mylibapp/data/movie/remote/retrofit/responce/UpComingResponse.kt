@@ -1,4 +1,4 @@
-package com.example.mylibapp.data.remote.retrofit.responce
+package com.example.mylibapp.data.movie.remote.retrofit.responce
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

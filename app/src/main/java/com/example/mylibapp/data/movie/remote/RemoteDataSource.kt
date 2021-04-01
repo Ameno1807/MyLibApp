@@ -1,7 +1,8 @@
-package com.example.mylibapp.repository
+package com.example.mylibapp.data.movie.remote
 
 import com.example.mylibapp.model.Movie
 
-interface MovieRepository {
+
+interface RemoteDataSource {
     suspend fun loadMovies(): List<Movie>
 }

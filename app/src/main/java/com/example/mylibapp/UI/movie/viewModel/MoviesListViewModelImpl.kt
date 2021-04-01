@@ -3,7 +3,7 @@ package com.example.mylibapp.UI.movie.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mylibapp.model.Movie
-import com.example.mylibapp.repository.MovieRepository
+import com.example.mylibapp.repository.movie.MovieRepository
 import kotlinx.coroutines.launch
 
 internal class MoviesListViewModelImpl(private val repository: MovieRepository) : MovieViewModel() {

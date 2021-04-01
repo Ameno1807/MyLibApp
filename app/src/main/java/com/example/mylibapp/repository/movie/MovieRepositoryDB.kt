@@ -1,6 +1,6 @@
-package com.example.mylibapp.repository
+package com.example.mylibapp.repository.movie
 
-import com.example.mylibapp.data.remote.retrofit.RetrofitDataSource
+import com.example.mylibapp.data.movie.remote.retrofit.RetrofitDataSource
 import com.example.mylibapp.model.Movie
 
 class MovieRepositoryDB(

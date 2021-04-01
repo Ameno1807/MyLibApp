@@ -1,4 +1,4 @@
-package com.example.mylibapp.UI.movie.view
+package com.example.mylibapp.UI.anime.view
 
 import android.content.Context
 import android.os.Bundle
@@ -10,23 +10,28 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mylibapp.R
+import com.example.mylibapp.UI.anime.viewModel.AnimeViewModelFactory
+import com.example.mylibapp.UI.anime.viewModel.AnimeViewModelShiki
 import com.example.mylibapp.UI.movie.viewModel.MovieListViewModelFactory
 import com.example.mylibapp.UI.movie.viewModel.MoviesListViewModelImpl
+import com.example.mylibapp.di.anime.AnimeRepositoryProvider
 import com.example.mylibapp.di.movie.MovieRepositoryProvider
+import com.example.mylibapp.model.Anime
 import com.example.mylibapp.model.Movie
 
-class FragmentMovieList: Fragment() {
 
-    private val viewModel: MoviesListViewModelImpl by viewModels {
-        MovieListViewModelFactory((requireActivity() as MovieRepositoryProvider).provideMovieRepository())
+class FragmentAnimeList : Fragment() {
+
+    private val viewModel: AnimeViewModelShiki by viewModels {
+        AnimeViewModelFactory((requireActivity() as AnimeRepositoryProvider).provideAnimeRepository())
     }
 
-    private var listener: MoviesListItemClickListener? = null
+    private var listener: AnimeListItemClickListener? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is MoviesListItemClickListener) {
+        if (context is AnimeListItemClickListener) {
             listener = context
         }
     }
@@ -36,16 +41,16 @@ class FragmentMovieList: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_movie_list, container, false)
+        return inflater.inflate(R.layout.fragment_anime_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<RecyclerView>(R.id.recycler_movie).apply {
+        view.findViewById<RecyclerView>(R.id.recycler_anime).apply {
             this.layoutManager = GridLayoutManager(this.context, 2)
-            val adapter = FragmentMovieAdapter { movieData ->
-                listener?.onMovieSelected(movieData)
+            val adapter = FragmentAnimeAdapter { animeData ->
+                listener?.onAnimeSelected(animeData)
             }
 
             this.adapter = adapter
@@ -57,9 +62,9 @@ class FragmentMovieList: Fragment() {
 
     }
 
-    private fun loadDataToAdapter(adapter: FragmentMovieAdapter) {
-        viewModel.moviesOutput.observe(viewLifecycleOwner, { movieList ->
-            adapter.submitList(movieList)
+    private fun loadDataToAdapter(adapter: FragmentAnimeAdapter) {
+        viewModel.animeOutput.observe(viewLifecycleOwner, { animeList ->
+            adapter.submitList(animeList)
         })
     }
 
@@ -70,8 +75,8 @@ class FragmentMovieList: Fragment() {
         super.onDetach()
     }
 
-    interface MoviesListItemClickListener {
-        fun onMovieSelected(movie: Movie)
+    interface AnimeListItemClickListener {
+        fun onAnimeSelected(anime: Movie)
     }
 
 

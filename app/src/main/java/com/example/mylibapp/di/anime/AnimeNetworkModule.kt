@@ -1,22 +1,21 @@
-package com.example.mylibapp.di
+package com.example.mylibapp.di.anime
 
-import com.example.mylibapp.data.remote.retrofit.MovieApiService
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.example.mylibapp.data.anime.remote.retrofit.AnimeApiService
+import com.example.mylibapp.data.movie.remote.retrofit.MovieApiService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
 import java.util.concurrent.TimeUnit
 
-class NetworkModule {
-    private val baseUrl = "https://api.themoviedb.org/"
-    private val version = "3/"
+class AnimeNetworkModule {
+
+
 
     private val json = Json {
         prettyPrint = true
@@ -34,36 +33,14 @@ class NetworkModule {
         .writeTimeout(30, TimeUnit.SECONDS)
         .readTimeout(10, TimeUnit.SECONDS)
         .addNetworkInterceptor(loggingInterceptor)
-        .addInterceptor(ApiKeyInterceptor())
         .build()
 
     private val retrofitBuilder = Retrofit.Builder()
-        .baseUrl(baseUrl + version)
+        .baseUrl("https://mylibapp.getsandbox.com")
         .addConverterFactory(json.asConverterFactory(contentType))
         .client(httpClient)
 
     private val retrofit = retrofitBuilder.build()
 
-    val api: MovieApiService by lazy { retrofit.create(MovieApiService::class.java) }
-}
-
-class ApiKeyInterceptor: Interceptor {
-
-    companion object {
-        private const val API_KEY = "51ba76a60220d6833d3d6d4ac4368e53"
-    }
-
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val origin = chain.request()
-        val urlBuilder = origin.url.newBuilder()
-        val url = urlBuilder
-            .addQueryParameter("api_key", API_KEY)
-            .build()
-
-        val requestBuilder = origin.newBuilder()
-            .url(url)
-
-        val request = requestBuilder.build()
-        return chain.proceed(request)
-    }
+    val api: AnimeApiService by lazy { retrofit.create(AnimeApiService::class.java) }
 }

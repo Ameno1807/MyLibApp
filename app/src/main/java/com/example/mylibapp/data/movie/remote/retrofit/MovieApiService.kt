@@ -1,9 +1,8 @@
-package com.example.mylibapp.data.remote.retrofit
+package com.example.mylibapp.data.movie.remote.retrofit
 
-import com.example.mylibapp.data.remote.retrofit.responce.ConfigurationResponse
-import com.example.mylibapp.data.remote.retrofit.responce.UpComingResponse
+import com.example.mylibapp.data.movie.remote.retrofit.responce.ConfigurationResponse
+import com.example.mylibapp.data.movie.remote.retrofit.responce.UpComingResponse
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MovieApiService {

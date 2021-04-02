@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.mylibapp.UI.anime.view.FragmentAnimeList
-import com.example.mylibapp.UI.book.FragmentBookList
+import com.example.mylibapp.UI.book.view.FragmentBookList
 import com.example.mylibapp.UI.movie.view.FragmentMovieList
 
 class MyPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {

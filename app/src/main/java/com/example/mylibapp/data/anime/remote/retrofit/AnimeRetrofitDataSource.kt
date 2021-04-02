@@ -14,7 +14,8 @@ class AnimeRetrofitDataSource(private val api: AnimeApiService): AnimeRemoteData
         return api.animeLoadUpcoming().results.map { anime ->
             Anime(
                 id = anime.id,
-                imageUrl = anime.poster
+                imageUrl = anime.poster,
+                title = anime.title
             )
         }
 

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -17,10 +18,13 @@ class FragmentAnimeAdapter(private val onClickCard: (item: Movie) -> Unit) : and
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageUrl: ImageView = itemView.findViewById(R.id.anime_image)
+        private val title: TextView = itemView.findViewById(R.id.anime_name_text)
 
         fun bind(item: Anime) {
 
             imageUrl.load(item.imageUrl)
+            title.text = item.title
+
 
         }
     }

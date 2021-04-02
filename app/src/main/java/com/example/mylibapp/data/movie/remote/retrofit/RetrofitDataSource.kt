@@ -23,7 +23,8 @@ class RetrofitDataSource(private val api: MovieApiService): RemoteDataSource {
         return api.loadUpcoming(page = 1).results.map { movie ->
             Movie(
                 id = movie.id,
-                imageUrl = formingUrl(baseUrl, posterSize, movie.posterPath)
+                imageUrl = formingUrl(baseUrl, posterSize, movie.posterPath),
+                title = movie.title
                 )
         }
 

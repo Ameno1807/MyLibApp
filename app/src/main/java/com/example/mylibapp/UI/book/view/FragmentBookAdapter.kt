@@ -1,6 +1,5 @@
-package com.example.mylibapp.UI.movie.view
+package com.example.mylibapp.UI.book.view
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +9,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.mylibapp.R
+import com.example.mylibapp.UI.movie.view.FragmentMovieAdapter
+import com.example.mylibapp.model.Book
 import com.example.mylibapp.model.Movie
 
-class FragmentMovieAdapter(private val onClickCard: (item: Movie) -> Unit) :
-    androidx.recyclerview.widget.ListAdapter<Movie, FragmentMovieAdapter.ViewHolder>(DiffCallback()) {
+class FragmentBookAdapter(private val onClickCard: (item: Book) -> Unit) :
+    androidx.recyclerview.widget.ListAdapter<Book, FragmentBookAdapter.ViewHolder>(DiffCallback()) {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imageUrl: ImageView = itemView.findViewById(R.id.movie_image)
-        private val title: TextView = itemView.findViewById(R.id.movie_name_text)
+        private val imageUrl: ImageView = itemView.findViewById(R.id.book_image)
+        private val title: TextView = itemView.findViewById(R.id.book_name_text)
 
-        fun bind(item: Movie) {
+        fun bind(item: Book) {
 
             imageUrl.load(item.imageUrl) {
                 crossfade(true)
@@ -32,7 +33,7 @@ class FragmentMovieAdapter(private val onClickCard: (item: Movie) -> Unit) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.view_item_movie, parent, false)
+                .inflate(R.layout.view_item_book, parent, false)
         )
     }
 
@@ -42,22 +43,13 @@ class FragmentMovieAdapter(private val onClickCard: (item: Movie) -> Unit) :
     }
 
 
-    class DiffCallback : DiffUtil.ItemCallback<Movie>() {
-        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+    class DiffCallback : DiffUtil.ItemCallback<Book>() {
+        override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        override fun areContentsTheSame(oldItem: Book, newItem: Book): Boolean {
             TODO("Not yet implemented")
         }
     }
 }
-
-
-
-
-
-
-
-
-

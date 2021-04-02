@@ -7,5 +7,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MovieResponse (
     @SerialName("id") val id : Int,
-    @SerialName("poster_path") val posterPath : String
+    @SerialName("poster_path") val posterPath : String,
+    @SerialName("title") val title: String
 )

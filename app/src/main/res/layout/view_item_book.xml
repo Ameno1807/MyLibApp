@@ -1,25 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="6dp"
     android:background="@drawable/shape"
-    android:elevation="2dp"
+    android:elevation="@dimen/cardview_default_elevation"
     app:layout_constrainedWidth="true">
+
 
     <ImageView
         android:id="@+id/book_image"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/i_am_legend"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/poster" />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/ic_masc"
+        app:layout_constraintBottom_toBottomOf="@id/book_image"
+        app:layout_constraintEnd_toEndOf="@id/book_image"
+        app:layout_constraintStart_toStartOf="@id/book_image"
+        app:layout_constraintTop_toTopOf="@id/book_image" />
+
+    <TextView
+        android:id="@+id/book_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="center_vertical|start"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_image"
+        android:text= "Я легенда" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

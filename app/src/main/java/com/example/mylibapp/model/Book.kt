@@ -1,7 +1,7 @@
 package com.example.mylibapp.model
 
-class Anime (
+class Book (
     val id: Int,
     val imageUrl: String?,
     val title: String
-        )
+)

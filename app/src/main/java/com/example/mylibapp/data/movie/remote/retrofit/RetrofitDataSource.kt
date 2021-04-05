@@ -36,11 +36,8 @@ class RetrofitDataSource(private val api: MovieApiService): RemoteDataSource {
         if (imageResponse == null) {
             imageResponse = api.loadConfiguration().images
             baseUrl = imageResponse?.secureBaseUrl
-            // TODO придумать более изящный вариант
             posterSize = imageResponse?.posterSizes?.find { it == "w500" }
-            // TODO придумать более изящный вариант
             backdropSize = imageResponse?.backdropSizes?.find { it == "w780" }
-            // TODO придумать более изящный вариант
             profileSize = imageResponse?.profileSizes?.find { it == "w185" }
         }
     }
